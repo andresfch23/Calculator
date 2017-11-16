@@ -924,10 +924,12 @@ p {
     display: inline-block;
     background-color: #AAAAAA;
     cursor: pointer;
-    border: 2px solid transparent; }
+    box-shadow: 0 5px #2c2a2a; }
     .container__item:hover {
-      border: 2px solid #58A5FF;
       color: #555555; }
+    .container__item:active {
+      box-shadow: 0 2px #000000;
+      transform: translateY(3px); }
   .container__input {
     color: #000000;
     background-color: #FFFFFF;
@@ -935,7 +937,13 @@ p {
     width: 97%;
     height: 40px;
     font-size: 20px;
-    padding-top: 7px; }
+    padding-top: 7px;
+    overflow: hidden;
+    border: 2px solid transparent; }
+    .container__input:hover {
+      border: 2px solid #AAAAAA; }
+    .container__input--click {
+      border: 2px solid #58A5FF; }
 
 .vertical-center--inline:before {
   content: "";
