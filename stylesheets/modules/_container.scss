@@ -24,6 +24,10 @@
             box-shadow: 0 2px #000000;
             transform: translateY(3px);
         }
+        &--active {
+            box-shadow: 0 2px #000000;
+            transform: translateY(3px);
+        }
     }
     &__input {
         color: $black;

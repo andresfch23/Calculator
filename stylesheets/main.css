@@ -930,6 +930,9 @@ p {
     .container__item:active {
       box-shadow: 0 2px #000000;
       transform: translateY(3px); }
+    .container__item--active {
+      box-shadow: 0 2px #000000;
+      transform: translateY(3px); }
   .container__input {
     color: #000000;
     background-color: #FFFFFF;
