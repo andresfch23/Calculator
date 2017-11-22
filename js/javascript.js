@@ -11,7 +11,7 @@ $(document).ready(function(){
     var $equal = $('#equal');
     var $visibleItem = $('.js-visible-item');
 
-    $('#0,#1,#2,#3,#4,#5,#6,#7,#8,#9,#add').click(function(){
+    $('#0,#1,#2,#3,#4,#5,#6,#7,#8,#9,#add,#delete,#subtract,#equal,#multiply,#divide').click(function(){
         if (add === true) {
             if (this.id === '0') {
                 insert = insert + '0';
@@ -33,34 +33,35 @@ $(document).ready(function(){
                 insert = insert + '8';
             } else if (this.id === '9') {
                 insert = insert + '9';
+            } if (this.id === 'delete') {
+                insert = insert.slice(0,-1);
             }
 
             $inputArea.text(insert);
-
+            
             if (this.id === 'add') {
                 operator = '+';
                 $inputArea.text(insert + operator);
                 add = false;
-                console.log(add);
             }
-        
 
-        $delete.click(function(){
-            insert = insert.slice(0,-1);
-            $inputArea.text(insert);
-        });
+            if (this.id === 'subtract') {
+                operator = '-';
+                $inputArea.text(insert + operator);
+                add = false;
+            } 
 
-        $add.click(function(){
-            operator = '+';
-            $inputArea.text(insert + operator);
-            add = false;
-        });
+            if (this.id === 'multiply') {
+                operator = 'x';
+                $inputArea.text(insert + operator);
+                add = false;
+            }
 
-        $subtract.click(function(){
-            operator = '-';
-            $inputArea.text(insert + operator);
-            add = false;
-        });
+            if (this.id === 'divide') {
+                operator = '÷';
+                $inputArea.text(insert + operator);
+                add = false;
+            }
 
         } else if (add === false) {
             if (this.id === '0') {
@@ -84,25 +85,35 @@ $(document).ready(function(){
             } else if (this.id === '9') {
                 insert2 = insert2 + '9';
             }
+
+            if (this.id === 'delete') {
+                insert2 = insert2.slice(0,-1);
+                var text = $inputArea.text();
+                if (text === insert + operator){
+                    operator = operator.slice(0,-1);
+                    $inputArea.text(insert + operator);
+                    add = true;
+                }
+            }
+            
             $inputArea.text(insert + operator + insert2);
 
-            $delete.click(function(){
-                insert2 = insert2.slice(0,-1);
-                $inputArea.text(insert + operator + insert2);
-            });
-
-            $equal.click(function(){
+            if (this.id === 'equal'){
                 var result = '';
                 if (operator === '+') {
                     result = (parseInt(insert) + parseInt(insert2));
                 } else if (operator === '-'){
                     result = (parseInt(insert) - parseInt(insert2));
+                } else if (operator === 'x'){
+                    result = (parseInt(insert) * parseInt(insert2));
+                } else if (operator === '÷'){
+                    result = (parseInt(insert) / parseInt(insert2));
                 }
                 add = true;
                 insert = result + '';
                 $inputArea.text(insert);
                 insert2 = '';
-            });
+            }
         }
     });
     
@@ -146,8 +157,26 @@ $(document).ready(function(){
             } 
             $inputArea.text(insert);
             
-            if (id === 187){
+            if (id === 187) {
                 operator = '+';
+                $inputArea.text(insert + operator);
+                add = false;
+            }
+
+            if (id === 189) {
+                operator = '-';
+                $inputArea.text(insert + operator);
+                add = false;
+            }
+
+            if (id === 219) {
+                operator = '÷';
+                $inputArea.text(insert + operator);
+                add = false;
+            }
+
+            if (id === 88) {
+                operator = 'x';
                 $inputArea.text(insert + operator);
                 add = false;
             }
@@ -185,15 +214,7 @@ $(document).ready(function(){
                 $("#9").addClass('container__item--active');
             } else if (id === 8) {
                 insert2 = insert2.slice(0,-1);
-                $inputArea.text(insert2);
-            }
-
-            $inputArea.text(insert + operator + insert2);
-            
-            var text = $inputArea.text();
-    
-            
-            if (id === 8) {
+                var text = $inputArea.text();
                 if (text === insert + operator){
                     operator = operator.slice(0,-1);
                     $inputArea.text(insert + operator);
@@ -201,23 +222,30 @@ $(document).ready(function(){
                 }
             }
 
-            if (id === 13){
-                var result = (parseInt(insert) + parseInt(insert2));
+            $inputArea.text(insert + operator + insert2);
+
+            if (id === 13) {
+                var value = $inputArea.text();
+                var result = '';
+                    if (value === insert + '+' + insert2) {
+                        result = (parseInt(insert) + parseInt(insert2));
+                    } else if (value === insert + '-' + insert2) {
+                        result = (parseInt(insert) - parseInt(insert2));
+                    } else if (value === insert + '÷' + insert2) {
+                        result = (parseInt(insert) / parseInt(insert2));
+                    } else if (value === insert + 'x' + insert2) {
+                        result = (parseInt(insert) * parseInt(insert2));
+                    }
                 add = true;
                 insert = result + '';
                 $inputArea.text(insert);
                 insert2 = '';
-                
-                //if ()
-            }
-            
+            }   
         }     
     })
     .keyup(function(){
         $('#0,#1,#2,#3,#4,#5,#6,#7,#8,#9').each(function(){
             $(this).removeClass('container__item--active');
         });
-        console.log(insert);
-        console.log(insert2);
     }); 
 });
